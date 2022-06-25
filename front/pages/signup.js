@@ -1,23 +1,33 @@
 import React, { useCallback, useState } from "react";
 import Head from "next/head";
 import { Form, Input } from "antd";
+import styled from "styled-components";
 
 import AppLayout from "../components/AppLayout";
+import useInput from "../hooks/useInput";
+
+const ErrorMessage = styled.div`
+  color: red;
+`;
 
 const Signup = () => {
-  const [id, setId] = useState("");
-  const [nick, setNick] = useState("");
-  const [password, setPassword] = useState("");
+  const [id, onChangeId] = useInput("");
+  const [nickname, onChangeNickName] = useInput("");
+  const [password, onChangePassword] = useInput("");
   const [passwordCheck, setPasswordCheck] = useState("");
+  const [passwordError, setPasswordError] = useState(false);
 
-  const onChangeId = useCallback((e) => setId(e.target.value), []);
-  const onChangeNick = useCallback((e) => setNick(e.target.value), []);
-  const onChangePassword = useCallback((e) => setPassword(e.target.value), []);
-  const onChangepasswordCheck = useCallback((e) => setPasswordCheck(e.target.value), []);
+  const onChangePasswordCheck = useCallback(
+    (e) => {
+      setPasswordCheck(e.target.value);
+      setPasswordError(e.target.value !== password);
+    },
+    [password]
+  );
 
   const onSubmit = useCallback(() => {
-    console.log(id, nick, password, passwordCheck);
-  }, [id, nick, password, passwordCheck]);
+    console.log(id, nickname, password, passwordCheck);
+  }, [id, nickname, password, passwordCheck]);
 
   return (
     <AppLayout>
@@ -35,9 +45,9 @@ const Signup = () => {
           <br />
           <Input
             name="user-nick"
-            value={nick}
+            value={nickname}
             required
-            onChange={onChangeNick}
+            onChange={onChangeNickName}
           />
         </div>
         <div>
@@ -59,8 +69,11 @@ const Signup = () => {
             type="password"
             value={passwordCheck}
             required
-            onChange={onChangepasswordCheck}
+            onChange={onChangePasswordCheck}
           />
+          {passwordError && (
+            <ErrorMessage>비밀번호가 일치하지 않습니다.</ErrorMessage>
+          )}
         </div>
         <button>submit</button>
       </Form>
