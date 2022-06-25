@@ -44,7 +44,7 @@ const rootReducer = (state = initialState, action) => {
         },
       };
     default:
-      return console.log("type check !");
+      return state;
   }
 };
 
