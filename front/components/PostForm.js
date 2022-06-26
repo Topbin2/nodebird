@@ -1,12 +1,28 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { Button, Form, Input } from "antd";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+
+import { addPost } from "../reducers/post";
 
 const PostForm = () => {
-  const [text, onChangeText] = useState("");
-  const { imagePaths } = useSelector((state) => state.post);
+  const [text, setText] = useState("");
+  const imageInput = useRef();
 
-  const onSubmit = useCallback(() => {}, []);
+  const { imagePaths } = useSelector((state) => state.post);
+  const dispatch = useDispatch();
+
+  const onChangeText = useCallback((e) => {
+    setText(e.target.value);
+  }, []);
+
+  const onSubmit = useCallback(() => {
+    dispatch(addPost);
+    setText("");
+  }, []);
+
+  const onClickImageUpload = useCallback(() => {
+    imageInput.current.click();
+  }, [imageInput.current]);
 
   return (
     <Form
@@ -21,8 +37,8 @@ const PostForm = () => {
         placeholder="어떤 신기한 일이 있었나요 ?"
       />
       <div>
-        <input type="file" multiple hidden />
-        <Button>이미지 업로드</Button>
+        <input type="file" multiple hidden ref={imageInput} />
+        <Button onClick={onClickImageUpload}>이미지 업로드</Button>
         <Button type="primary" style={{ float: "right" }} htmlType="submit">
           짹짹
         </Button>
@@ -30,7 +46,10 @@ const PostForm = () => {
       <div>
         {imagePaths.map((v) => (
           <div key={v} style={{ display: "inline-block" }}>
-            <img src="v" alt="v" style={{ width: "200px" }} />
+            <img src={v} alt={v} style={{ width: "200px" }} />
+            <div>
+              <Button>제거</Button>
+            </div>
           </div>
         ))}
       </div>
