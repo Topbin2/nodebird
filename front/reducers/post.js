@@ -61,6 +61,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         mainPosts: [dummyPost, ...state.mainPosts],
+        postAdded: true,
       };
     default:
       return state;
