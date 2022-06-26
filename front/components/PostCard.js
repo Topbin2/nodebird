@@ -1,7 +1,43 @@
 import React from "react";
+import { Button, Card, Popover } from "antd";
+import {
+  EllipsisOutlined,
+  HeartOutlined,
+  MessageOutlined,
+  RetweetOutlined,
+} from "@ant-design/icons";
 
-const PostCard = () => {
-  return <div>포스트 카드</div>;
+const PostCard = ({ post }) => {
+  return (
+    <div>
+      <Card
+        cover={post.Images[0] && <PostImages images={post.Images} />}
+        actions={[
+          <RetweetOutlined key="retweet" />,
+          <HeartOutlined key="heart" />,
+          <MessageOutlined key="comment" />,
+          <Popover
+            key="more"
+            content={
+              <Button.Group>
+                <Button>수정</Button>
+                <Button>삭제</Button>
+                <Button>신고</Button>
+              </Button.Group>
+            }
+          >
+            <EllipsisOutlined />
+          </Popover>,
+        ]}
+      >
+        <Image />
+        <Content />
+        <Buttons></Buttons>
+      </Card>
+      <CommentForm />
+      <Comments />
+    </div>
+  );
 };
 
 export default PostCard;
