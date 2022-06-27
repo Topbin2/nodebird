@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 
 const PostCard = ({ post }) => {
   const id = useSelector((state) => state.user.me?.id);
-
+  console.log('test');
   return (
     <div>
       <Card
