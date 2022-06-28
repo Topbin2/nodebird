@@ -2,10 +2,10 @@ import React, { useCallback } from "react";
 import { Form, Input, Button } from "antd";
 import useInput from "../hooks/useInput";
 import PropTypes from "prop-types";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 
 const CommentForm = ({ post }) => {
-  const id = useSelector((state) => state.me?.id);
+  // const id = useSelector((state) => state.me?.id);
   const [commentText, onChangeCommentText] = useInput("");
   const onSubmitComment = useCallback(() => {
     console.log(post.id, commentText);
@@ -13,14 +13,17 @@ const CommentForm = ({ post }) => {
 
   return (
     <Form onFinish={onSubmitComment}>
-      123
-      <Form.Item>
+      <Form.Item style={{ position: "relative", margin: 0 }}>
         <Input.TextArea
           value={commentText}
           onChange={onChangeCommentText}
           rows={4}
         />
-        <Button type="primary" htmlType="submit">
+        <Button
+          style={{ position: "absolute", right: 0, bottom: -40 }}
+          type="primary"
+          htmlType="submit"
+        >
           삐약
         </Button>
       </Form.Item>
