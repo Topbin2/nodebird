@@ -9,6 +9,10 @@ const PostImages = ({ images }) => {
     setShowImagesZoom(true);
   }, []);
 
+  const onClose = useCallback(() => {
+    setShowImagesZoom(false);
+  }, []);
+
   if (images.length === 1) {
     return (
       <>
@@ -18,6 +22,7 @@ const PostImages = ({ images }) => {
           alt={images[0].src}
           onClick={onZoom}
         />
+        {showImagesZoom && <ImagesZoom image={image} onClose={onClose} />}
       </>
     );
   }
@@ -38,34 +43,38 @@ const PostImages = ({ images }) => {
           alt={images[0].src}
           onClick={onZoom}
         />
+        {showImagesZoom && <ImagesZoom image={image} onClose={onClose} />}
       </>
     );
   }
   return (
-    <div>
-      <img
-        role="presentation"
-        width="50%"
-        src={images[0].src}
-        alt={images[0].src}
-        onClick={onZoom}
-      />
-      <div
-        role="presentation"
-        style={{
-          display: "inline-block",
-          width: "50%",
-          textAlign: "center",
-          verticalAlign: "middle",
-        }}
-        onClick={onZoom}
-      >
-        <PlusOutlined />
-        <br />
-        {images.length - 1}
-        개의 사진 더보기
+    <>
+      <div>
+        <img
+          role="presentation"
+          width="50%"
+          src={images[0].src}
+          alt={images[0].src}
+          onClick={onZoom}
+        />
+        <div
+          role="presentation"
+          style={{
+            display: "inline-block",
+            width: "50%",
+            textAlign: "center",
+            verticalAlign: "middle",
+          }}
+          onClick={onZoom}
+        >
+          <PlusOutlined />
+          <br />
+          {images.length - 1}
+          개의 사진 더보기
+        </div>
       </div>
-    </div>
+      {showImagesZoom && <ImagesZoom image={image} onClose={onClose} />}
+    </>
   );
 };
 
