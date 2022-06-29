@@ -1,10 +1,8 @@
-import { all, fork, takeLatest, call, put, delay } from "redux-saga/effects";
-import axios from "axios";
+import { all, fork } from "redux-saga/effects";
 
-
-
-
+import postSaga from "./post";
+import userSaga from "./user";
 
 export default function* rootSaga() {
-  yield all([fork(watchLogin), fork(watchLogout), fork(watchAddPost)]);
+  yield all([fork(postSaga), fork(userSaga)]);
 }
