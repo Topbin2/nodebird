@@ -5,12 +5,13 @@ import { all, fork, takeLatest, delay, put } from "redux-saga/effects";
 //   return axios.post("/api/login", data);
 // }
 
-function* logIn() { //! parameter -> action
+function* logIn(action) {
   try {
     // const result = yield call(logInAPI);
     yield delay(2000);
     yield put({
       type: "LOG_IN_SUCCESS",
+      data: action.data,
     });
   } catch (err) {
     yield put({
