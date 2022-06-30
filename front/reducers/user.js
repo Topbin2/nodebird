@@ -1,13 +1,16 @@
 export const initialState = {
-  logInLoading: false,
+  logInLoading: false, // 로그인 시도중
   logInDone: false,
   logInError: null,
-  logOutLoading: false,
+  logOutLoading: false, // 로그아웃 시도중
   logOutDone: false,
   logOutError: null,
-  signUpLoading: false,
+  signUpLoading: false, // 회원가입 시도중
   signUpDone: false,
   signUpError: null,
+  changeNicknameLoading: false, // 회원가입 시도중
+  changeNicknameDone: false,
+  changeNicknameError: null,
   me: null,
   signUpData: {},
   loginData: {},
