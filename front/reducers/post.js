@@ -157,7 +157,7 @@ const reducer = (state = initialState, action) => {
         draft.addCommentError = action.error;
         break;
       default:
-        return state;
+        break;
     }
   });
 };
