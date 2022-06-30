@@ -3,46 +3,7 @@ import produce from "immer";
 import faker from "faker";
 
 export const initialState = {
-  mainPosts: [
-    {
-      id: 1,
-      User: {
-        id: 1,
-        nickname: "모상빈",
-      },
-      content: "첫 번째 게시글 #해시태그 #익스프레스",
-      Images: [
-        {
-          id: shortid.generate(),
-          src: "https://velog.velcdn.com/images/sangbin2/post/3d195f3d-7e5e-4e53-9879-ef2c97ba8107/image.png",
-        },
-        {
-          id: shortid.generate(),
-          src: "https://velog.velcdn.com/images/sangbin2/post/3d195f3d-7e5e-4e53-9879-ef2c97ba8107/image.png",
-        },
-        {
-          id: shortid.generate(),
-          src: "https://velog.velcdn.com/images/sangbin2/post/3d195f3d-7e5e-4e53-9879-ef2c97ba8107/image.png",
-        },
-      ],
-      Comments: [
-        {
-          id: shortid.generate(),
-          User: {
-            nickname: "다현",
-          },
-          content: "우와 개정판이 나왔군요~",
-        },
-        {
-          id: shortid.generate(),
-          User: {
-            nickname: "콩이",
-          },
-          content: "왈왈왈왈왈왈",
-        },
-      ],
-    },
-  ],
+  mainPosts: [],
   imagePaths: [],
   addPostLoading: false,
   addPostDone: false,
@@ -55,8 +16,8 @@ export const initialState = {
   addCommentError: null,
 };
 
-initialState.mainPosts = initialState.mainPosts.concat(
-  Array(20)
+export const generateDummyPost = (number) =>
+  Array(number)
     .fill()
     .map(() => ({
       id: shortid.generate(),
@@ -79,8 +40,13 @@ initialState.mainPosts = initialState.mainPosts.concat(
           content: faker.lorem.sentence(),
         },
       ],
-    }))
-);
+    }));
+
+initialState.mainPosts = initialState.mainPosts.concat(generateDummyPost(10));
+
+export const LOAD_POSTS_REQUEST = "LOAD_POSTS_REQUEST";
+export const LOAD_POSTS_SUCCESS = "LOAD_POSTS_SUCCESS";
+export const LOAD_POSTS_FAILURE = "LOAD_POSTS_FAILURE";
 
 export const ADD_POST_REQUEST = "ADD_POST_REQUEST";
 export const ADD_POST_SUCCESS = "ADD_POST_SUCCESS";
