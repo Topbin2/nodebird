@@ -11,23 +11,28 @@ export const initialState = {
       content: "첫 번째 게시글 #해시태그 #익스프레스",
       Images: [
         {
+          id: shortid.generate(),
           src: "https://velog.velcdn.com/images/sangbin2/post/3d195f3d-7e5e-4e53-9879-ef2c97ba8107/image.png",
         },
         {
+          id: shortid.generate(),
           src: "https://velog.velcdn.com/images/sangbin2/post/3d195f3d-7e5e-4e53-9879-ef2c97ba8107/image.png",
         },
         {
+          id: shortid.generate(),
           src: "https://velog.velcdn.com/images/sangbin2/post/3d195f3d-7e5e-4e53-9879-ef2c97ba8107/image.png",
         },
       ],
       Comments: [
         {
+          id: shortid.generate(),
           User: {
             nickname: "다현",
           },
           content: "우와 개정판이 나왔군요~",
         },
         {
+          id: shortid.generate(),
           User: {
             nickname: "콩이",
           },
@@ -64,8 +69,8 @@ export const addComment = (data) => ({
 });
 
 const dummyPost = (data) => ({
-  id: shortid.generate(),
-  content: data,
+  id: data.id,
+  content: data.content,
   User: {
     id: 1,
     nickname: "상빈",
@@ -120,7 +125,6 @@ const reducer = (state = initialState, action) => {
       post.Comments = [dummyComment(action.data.content), ...post.Comments];
       const mainPosts = [...state.mainPosts];
       mainPosts[postIndex] = post;
-      console.log(mainPosts[postIndex]);
       return {
         ...state,
         mainPosts,
